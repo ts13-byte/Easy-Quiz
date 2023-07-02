@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,4 +72,24 @@ public class UserController {
 
 		userService.DeleteUserById(id);
 	}
+	
+	@PutMapping("/{userName}")
+	public User UpdateUserInfo(@RequestBody User user,@PathVariable String userName) throws Exception {
+
+		User OldUser=userService.getUserByName(userName);
+		Long id=OldUser.getId();
+		userService.DeleteUserById(id);
+		UserRole userRole = new UserRole();
+		Set<UserRole> userRolesSet = new HashSet<>();
+
+		Role role = new Role();
+		role.setRoleId(45L);
+		role.setRoleName("Normal");
+
+		userRole.setRole(role);
+		userRole.setUser(user);
+		userRolesSet.add(userRole);
+		return this.userService.createUser(user, userRolesSet);
+	}
+	
 }
