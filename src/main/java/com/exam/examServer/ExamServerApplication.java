@@ -15,7 +15,7 @@ import com.exam.examServer.models.UserRole;
 import com.exam.examServer.service.UserService;
 
 @SpringBootApplication
-public class ExamServerApplication implements CommandLineRunner {
+public class ExamServerApplication{
 	
 	@Autowired
 	private UserService userService;
@@ -26,30 +26,30 @@ public class ExamServerApplication implements CommandLineRunner {
 		
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println("running code");
-		User user1=new User();
-		user1.setFirstName("Sara");
-		user1.setLastName("Tripathi");
-		user1.setEmail("abc@gmail.com");
-		user1.setEnabled(true);
-		user1.setPhone("1234");
-		user1.setUserName("sara1");
-		user1.setPassword("123");
-		user1.setImage("default.png");
-		
-		Role role1=new Role();
-		role1.setRoleId(44L);
-		role1.setRoleName("admin");
-		
-		Set<UserRole> userRoleSet=new HashSet<>();
-		UserRole userRole=new UserRole();
-		userRole.setRole(role1);
-		userRole.setUser(user1);
-		userRoleSet.add(userRole);
-		user1=this.userService.createUser(user1, userRoleSet);
-		System.out.println(user1.getUserName());
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		System.out.println("running code");
+//		User user1=new User();
+//		user1.setFirstName("Sara");
+//		user1.setLastName("Tripathi");
+//		user1.setEmail("abc@gmail.com");
+//		user1.setEnabled(true);
+//		user1.setPhone("1234");
+//		user1.setUserName("sara1");
+//		user1.setPassword("123");
+//		user1.setImage("default.png");
+//		
+//		Role role1=new Role();
+//		role1.setRoleId(44L);
+//		role1.setRoleName("admin");
+//		
+//		Set<UserRole> userRoleSet=new HashSet<>();
+//		UserRole userRole=new UserRole();
+//		userRole.setRole(role1);
+//		userRole.setUser(user1);
+//		userRoleSet.add(userRole);
+//		user1=this.userService.createUser(user1, userRoleSet);
+//		System.out.println(user1.getUserName());
+//	}
 
 }

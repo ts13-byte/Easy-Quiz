@@ -12,8 +12,6 @@ import com.exam.examServer.repository.UserRepository;
 import com.exam.examServer.service.UserService;
 
 
-
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		User local = this.userRepository.findByUserName(user.getUserName());
 		if (local != null) {
 			System.out.println("User is already present!");
-		throw new Exception("This user is already present!!!");
+	throw new Exception("This user is already present!!!");
 		} else {
 			for(UserRole ur:userRoles) {
 				roleRepository.save(ur.getRole());
@@ -41,6 +39,17 @@ public class UserServiceImpl implements UserService {
 			local=this.userRepository.save(user);
 		}
 		return local;
+		
+	}
+
+	@Override
+	public User getUserByName(String userName) {
+		return this.userRepository.findByUserName(userName);
+	}
+
+	@Override
+	public void DeleteUserById(Long id) {
+		this.userRepository.deleteById(id);
 		
 	}
 

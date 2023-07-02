@@ -11,7 +11,9 @@ public interface UserService {
 	//creating user based on the role
 	public User createUser(User user, Set<UserRole> userRoles) throws Exception;
 	
+	public User getUserByName(String userName);
 	
+	public void DeleteUserById(Long id);
 
 	
 }
