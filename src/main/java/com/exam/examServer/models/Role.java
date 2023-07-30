@@ -33,7 +33,7 @@ public class Role {
 	
 	private String roleName;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY,mappedBy="role")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER,mappedBy="role")
 	@JsonIgnore
 	private Set<UserRole> userRoles=new HashSet<>();
 }

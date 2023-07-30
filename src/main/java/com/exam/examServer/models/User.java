@@ -56,7 +56,7 @@ public class User implements UserDetails{
 		this.userRoles.forEach(userRole->{
 			set.add(new Authority(userRole.getRole().getRoleName()));
 		});
-		return null;
+		return set;
 	}
 
 	

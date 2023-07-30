@@ -29,6 +29,6 @@ public class UserRole {
 	@ManyToOne(fetch=FetchType.EAGER)
 	private User user;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Role role;
 }
