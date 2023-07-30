@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +22,13 @@ import com.exam.examServer.service.UserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin("*")
 public class UserController {
 	@Autowired
 	private UserService userService;
 
 	/**
-	 * This API will handle creating a new user each user will be automatically
+	 * This API will handle creating a new user, each user will be automatically
 	 * assigned a normal user role
 	 * 
 	 * @param user
@@ -76,9 +78,10 @@ public class UserController {
 	@PutMapping("/{userName}")
 	public User UpdateUserInfo(@RequestBody User user,@PathVariable String userName) throws Exception {
 
-		User OldUser=userService.getUserByName(userName);
-		Long id=OldUser.getId();
+		User OldUser = userService.getUserByName(userName);
+		Long id = OldUser.getId();
 		userService.DeleteUserById(id);
+		
 		UserRole userRole = new UserRole();
 		Set<UserRole> userRolesSet = new HashSet<>();
 
@@ -90,6 +93,7 @@ public class UserController {
 		userRole.setUser(user);
 		userRolesSet.add(userRole);
 		return this.userService.createUser(user, userRolesSet);
+
 	}
-	
+
 }

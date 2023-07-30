@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.exam.examServer.exceptions.UserPresentException;
 import com.exam.examServer.models.Role;
@@ -22,8 +23,10 @@ public class ExamServerApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExamServerApplication.class, args);
-		
-		
+//		String plainPassword = "user123";
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String hashedPassword = passwordEncoder.encode(plainPassword);
+//        System.out.println("Hashed Password: " + hashedPassword);
 	}
 
 //	@Override
