@@ -1,5 +1,7 @@
 package com.exam.examServer.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,6 +9,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +19,11 @@ import com.exam.examServer.config.JwtUtil;
 import com.exam.examServer.exceptions.UserNotFoundException;
 import com.exam.examServer.models.JwtRequest;
 import com.exam.examServer.models.JwtResponse;
+import com.exam.examServer.models.User;
 import com.exam.examServer.service.impl.UserDetailServiceImpl;
 
 @RestController
+@CrossOrigin("*")
 public class AuthenticateController {
 
 	@Autowired
@@ -28,6 +34,13 @@ public class AuthenticateController {
 
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	/**
+	 * This API generates a JWT Authentication token that will help in access other APIs.
+	 * @param jwtRequest
+	 * @return
+	 * @throws Exception
+	 */
 
 	@PostMapping("/generate-token")
 	public ResponseEntity<JwtResponse> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -55,5 +68,14 @@ public class AuthenticateController {
 	        e.printStackTrace(); // Add this line to print the full stack trace
 	        throw new Exception("Authentication error: " + e.getMessage());
 	    }
+	}
+	/**
+	 * This API returns the currently logged in user 
+	 * @param principal
+	 * @return
+	 */
+	@GetMapping("/current-user")
+	public User getCurrentUser(Principal principal) {
+		return (User) this.userDetailServiceImpl.loadUserByUsername(principal.getName());
 	}
 }

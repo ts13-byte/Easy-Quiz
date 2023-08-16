@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.exam.examServer.exceptions.UserPresentException;
+import com.exam.examServer.exceptions.UserFoundException;
 import com.exam.examServer.models.Role;
 import com.exam.examServer.models.User;
 import com.exam.examServer.models.UserRole;
@@ -38,7 +38,7 @@ public class ExamServerApplication{
 //		user1.setEmail("abc@gmail.com");
 //		user1.setEnabled(true);
 //		user1.setPhone("1234");
-//		user1.setUserName("sara1");
+//		user1.setUserName("sara6");
 //		user1.setPassword("123");
 //		user1.setImage("default.png");
 //		

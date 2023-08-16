@@ -3,7 +3,7 @@ package com.exam.examServer.exceptions;
 public class UserNotFoundException extends Exception {
 	
 	 public UserNotFoundException() {
-	        super();
+	        super("user with this name cannot be found!");
 	    }
 
 	    public UserNotFoundException(String message) {

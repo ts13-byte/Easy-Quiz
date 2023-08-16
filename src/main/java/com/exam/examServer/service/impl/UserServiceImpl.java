@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.exam.examServer.exceptions.UserFoundException;
+import com.exam.examServer.exceptions.UserNotFoundException;
 import com.exam.examServer.models.User;
 import com.exam.examServer.models.UserRole;
 import com.exam.examServer.repository.RoleRepository;
@@ -34,7 +36,8 @@ public class UserServiceImpl implements UserService {
 		User local = this.userRepository.findByUserName(user.getUsername());
 		if (local != null) {
 			System.out.println("User is already present!");
-			throw new Exception("This user is already present!!!");
+			throw new UserFoundException();
+			//throw new Exception("This user is already present!!!");
 		} else {
 			for (UserRole ur : userRoles) {
 				roleRepository.save(ur.getRole());
