@@ -29,55 +29,61 @@ import com.exam.examServer.service.QuizService;
 @CrossOrigin("*")
 public class QuizController {
 
-	@Autowired 
+	@Autowired
 	private QuizService quizService;
 	@Autowired
 	private CategoryService categoryService;
-	
-	
+
 	@PostMapping("/")
 	public ResponseEntity<?> addNewQuiz(@RequestBody Quiz quiz) {
 		return ResponseEntity.ok(this.quizService.addNewQuiz(quiz));
 	}
-	
-	
+
 	@GetMapping("/{quizId}")
 	public ResponseEntity<?> getQuizById(@PathVariable Long quizId) {
-		  Optional<Quiz> QuizOptional=this.quizService.getQuizById(quizId);
+		Optional<Quiz> QuizOptional = this.quizService.getQuizById(quizId);
 
-		    if (QuizOptional.isPresent()) {
-		        Quiz quiz = QuizOptional.get();
-		        return ResponseEntity.ok(quiz);
-		    } else {
-		        return ResponseEntity.notFound().build();
-		    }
+		if (QuizOptional.isPresent()) {
+			Quiz quiz = QuizOptional.get();
+			return ResponseEntity.ok(quiz);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
-	
 
-	
 	@GetMapping("/")
-	public ResponseEntity<?> getAllQuizzes(){
+	public ResponseEntity<?> getAllQuizzes() {
 		return ResponseEntity.ok(this.quizService.getAllQuizzes());
 	}
-	
 
 	@PutMapping("/")
 	public ResponseEntity<?> updateQuiz(@RequestBody Quiz quiz) {
 		return ResponseEntity.ok(this.quizService.updateQuiz(quiz));
 	}
-	
 
 	@DeleteMapping("/{quizId}")
 	public void deleteQuiz(@PathVariable Long quizId) {
 		this.quizService.deleteQuizById(quizId);
 	}
-	
+
 	@GetMapping("/category/{categoryId}")
-	public ResponseEntity<?> getQuizzesOfACategory(@PathVariable Long categoryId){
-		Category category=this.categoryService.getCategoryById(categoryId).get();
-		Set<Quiz> quizSet=category.getQuizzes();
-		List list=new ArrayList<>(quizSet);
+	public ResponseEntity<?> getQuizzesOfACategory(@PathVariable Long categoryId) {
+		Category category = this.categoryService.getCategoryById(categoryId).get();
+		Set<Quiz> quizSet = category.getQuizzes();
+		List list = new ArrayList<>(quizSet);
 		Collections.shuffle(list);
 		return ResponseEntity.ok(list);
+	}
+
+	@GetMapping("/active")
+	public List<Quiz> getAllActiveQuizzes() {
+		return this.quizService.getAllActiveQuizzes();
+	}
+
+	@GetMapping("/category/active/{categoryId}")
+	public List<Quiz> getAllActiveQuizzes(@PathVariable Long categoryId) {
+		Category category = new Category();
+		category.setCid(categoryId);
+		return this.quizService.getAllActiveQuizzesOfACategory(category);
 	}
 }

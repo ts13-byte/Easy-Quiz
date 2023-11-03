@@ -1,5 +1,6 @@
 package com.exam.examServer.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,4 +21,8 @@ public interface QuizService {
 	public void deleteQuizById(Long QuizId);
 	
 	public Set<Quiz> getQuizzesOfCategory(Category category);	
+	
+	public List<Quiz> getAllActiveQuizzes();
+	
+	public List<Quiz> getAllActiveQuizzesOfACategory(Category category);
 }

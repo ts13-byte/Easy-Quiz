@@ -1,6 +1,7 @@
 package com.exam.examServer.service.impl;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -50,5 +51,17 @@ public class QuizServiceImpl implements QuizService {
 	public Set<Quiz> getQuizzesOfCategory(Category category) {
 		return this.quizRepository.findByCategory(category);
 	}
+
+	@Override
+	public List<Quiz> getAllActiveQuizzes() {
+		return this.quizRepository.findByActive(true);
+	}
+
+	@Override
+	public List<Quiz> getAllActiveQuizzesOfACategory(Category category) {
+		return this.quizRepository.findByCategoryAndActive(category, true);
+	}
+	
+	
 	
 }
