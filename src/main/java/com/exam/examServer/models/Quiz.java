@@ -41,7 +41,7 @@ public class Quiz {
 	
 	private boolean active=false;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Category category;
 	
 	@OneToMany(mappedBy="quiz",fetch=FetchType.LAZY, cascade=CascadeType.ALL)

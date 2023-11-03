@@ -3,6 +3,8 @@ package com.exam.examServer.service;
 import java.util.Optional;
 import java.util.Set;
 
+import com.exam.examServer.models.Category;
+import com.exam.examServer.models.Question;
 import com.exam.examServer.models.Quiz;
 
 public interface QuizService {
@@ -17,4 +19,5 @@ public interface QuizService {
 	
 	public void deleteQuizById(Long QuizId);
 	
+	public Set<Quiz> getQuizzesOfCategory(Category category);	
 }

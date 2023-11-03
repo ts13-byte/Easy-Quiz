@@ -1,6 +1,10 @@
 package com.exam.examServer.controllers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exam.examServer.models.Category;
+import com.exam.examServer.models.Question;
 import com.exam.examServer.models.Quiz;
+import com.exam.examServer.service.CategoryService;
 import com.exam.examServer.service.QuizService;
 
 @RestController
@@ -25,6 +31,8 @@ public class QuizController {
 
 	@Autowired 
 	private QuizService quizService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	
 	@PostMapping("/")
@@ -62,5 +70,14 @@ public class QuizController {
 	@DeleteMapping("/{quizId}")
 	public void deleteQuiz(@PathVariable Long quizId) {
 		this.quizService.deleteQuizById(quizId);
+	}
+	
+	@GetMapping("/category/{categoryId}")
+	public ResponseEntity<?> getQuizzesOfACategory(@PathVariable Long categoryId){
+		Category category=this.categoryService.getCategoryById(categoryId).get();
+		Set<Quiz> quizSet=category.getQuizzes();
+		List list=new ArrayList<>(quizSet);
+		Collections.shuffle(list);
+		return ResponseEntity.ok(list);
 	}
 }

@@ -73,11 +73,22 @@ public class QuestionController {
 		Set<Question> questionSet=quiz.getQuestions();
 		List list=new ArrayList<>(questionSet);
 		if(list.size()>Integer.parseInt(quiz.getNumberOfQuestions())) {
-			list=list.subList(0,Integer.parseInt(quiz.getNumberOfQuestions())+1);
+			list=list.subList(0,Integer.parseInt(quiz.getNumberOfQuestions()));
 		}
 		Collections.shuffle(list);
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/quiz/all/{quizId}")
+	public ResponseEntity<?> getQuestionsOfQuizAdmin(@PathVariable Long quizId){
+
+		Quiz quiz =this.quizService.getQuizById(quizId).get();
+		Set<Question> questionSet=quiz.getQuestions();
+		List list=new ArrayList<>(questionSet);
+		Collections.shuffle(list);
+		return ResponseEntity.ok(list);
+	}
+	
 	
 	@DeleteMapping("/{questionId}")
 	public void deleteQuestion(@PathVariable Long questionId) {
