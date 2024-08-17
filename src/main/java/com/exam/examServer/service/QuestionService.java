@@ -1,5 +1,6 @@
 package com.exam.examServer.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,4 +20,9 @@ public interface QuestionService {
 	public Set<Question> getQuestionsOfQuiz(Quiz quiz);
 	
 	public void deleteQuestion(Long questionId);
+	
+	public List<Question> getRequestedNumberOfQuestions(Long quizId);
+	
+	public Question get(Long questionId);
+	
 }

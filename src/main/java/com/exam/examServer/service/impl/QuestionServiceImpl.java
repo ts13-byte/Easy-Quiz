@@ -1,6 +1,9 @@
 package com.exam.examServer.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,6 +16,7 @@ import com.exam.examServer.models.Question;
 import com.exam.examServer.models.Quiz;
 import com.exam.examServer.repository.QuestionRepository;
 import com.exam.examServer.service.QuestionService;
+import com.exam.examServer.service.QuizService;
 
 import jakarta.transaction.Transactional;
 
@@ -21,6 +25,8 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+	@Autowired
+	private QuizService quizService;
 	
 	@Override
 	public Question addQuestion(Question question) {
@@ -56,6 +62,24 @@ public class QuestionServiceImpl implements QuestionService {
 		this.questionRepository.deleteById(questionId);
 	}
 	
+	public List<Question> getRequestedNumberOfQuestions(Long quizId) {
+		Quiz quiz =this.quizService.getQuizById(quizId).get();
+		Set<Question> questionSet=quiz.getQuestions();
+		List<Question> list=new ArrayList<>(questionSet);
+		list.forEach((q)->{
+			q.setAnswer("");
+		});
+		if(list.size()>Integer.parseInt(quiz.getNumberOfQuestions())) {
+			list=list.subList(0,Integer.parseInt(quiz.getNumberOfQuestions()));
+		}
+		Collections.shuffle(list);
+		return list;
+	}
+
+	@Override
+	public Question get(Long questionId) {
+		return this.questionRepository.getOne(questionId);
+	}
 	
 	
 
